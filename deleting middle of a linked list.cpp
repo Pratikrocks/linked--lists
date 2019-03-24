@@ -1,4 +1,4 @@
-//----inserting a node in the middle of the linked list
+//----deleting middle of a linked list
 #include<bits/stdc++.h>
 using namespace std;
 struct node
