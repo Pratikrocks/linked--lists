@@ -35,56 +35,56 @@ void print(struct node *head)
   cout<<"\n";
 }
 
-void swAP(struct node** head,int a)
+void swAP(struct node** head,int a,int b)
 {
-  int count=coun(*head);
-  if(a>count)return;
-  //if(a==b)return;
+  if(a==b)return;
+  struct node*x_curr=*head,*y_curr=*head,*x_prev=NULL,*y_prev=NULL;
+  int x0=1,y0=1;
+  while(x0!=a and x_curr!=NULL)
+  {
+    x0++;
+    x_prev=x_curr;
+    x_curr=x_curr->next;
+  }
+  while(y0!=b and y_curr!=NULL)
+  {
+    y0++;
+    y_prev=y_curr;
+    y_curr=y_curr->next;
+  }
+  if(x_curr==NULL or y_curr==NULL)return;
+  if(x_prev)
+  {
+    x_prev->next=y_curr;
+  }
   else
   {
-    struct node*x=*head;
-    struct node*y=*head;
-    struct node*x_prev=NULL;
-    struct node*y_prev=NULL;
-    for(int i=1;i<a;i++)
-    {
-      x_prev=x;
-      x=x->next;
-    }
-    for(int i=1;i<count-a+1;i++)
-    {
-      y_prev=y;
-      y=y->next;
-    }
-    if(x_prev)
-    {
-      x_prev->next=y;
-
-    }
-    //x->next=y_prev->next->next;
-    if(y_prev)
-    {
-      y_prev->next=x;
-    }
-    //y->next=x_prev->next->next;
-    struct node* temp=x->next;
-    x->next=y->next;
-    y->next=temp;
-    if(a==1)*head=y;
-    if(a==count)*head=x;
+    *head=y_curr;
   }
-    print(*head);
+  if(y_prev)
+  {
+    y_prev->next=x_curr;
+  }
+  else
+  {
+    *head=x_curr;
+  }
+  struct node*tmp=x_curr->next;
+  x_curr->next=y_curr->next;
+  y_curr->next=tmp;
+
 }
 int main()
 {
   struct node*head=NULL;
-  int n=8;
+  int n=9;
   int a=2;
+  int b=4;
   while(n--)
   {
     create(&head,n+1);
   }
   print(head);
-  swAP(&head,a);
+  swAP(&head,a,b);
   print(head);
 }
